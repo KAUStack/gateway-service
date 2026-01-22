@@ -1,0 +1,31 @@
+# Dockerfile for CI/CD - uses pre-built JAR from Maven build
+# This avoids rebuilding in Docker when the JAR is already built
+
+FROM eclipse-temurin:25-jre-alpine
+
+WORKDIR /app
+
+# Install curl for health checks
+RUN apk add --no-cache curl
+
+# Create a non-root user for security
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -u 1001 -S appuser -G appgroup
+
+# Copy only the final JAR (not .original or other build artifacts)
+COPY target/*-SNAPSHOT.jar app.jar
+
+# Change ownership to non-root user
+RUN chown -R appuser:appgroup /app
+
+USER appuser
+
+# Expose application port
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8080/actuator/health || exit 1
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
