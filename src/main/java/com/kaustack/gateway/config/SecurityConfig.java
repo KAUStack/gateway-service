@@ -22,7 +22,7 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     
     @Value("${cors.allowed-origins}")
-    private String allowedOrigins;
+    private String[] allowedOrigins;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, 
                           JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
