@@ -30,6 +30,11 @@ public class SecurityConfig {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
+    /**
+    * Development CORS configuration with relaxed rules
+    * @return CorsConfigurationSource with development settings
+    * Note: This configuration is only active when the 'dev' profile is active
+    **/
     @Bean
     @Profile("dev")
     public CorsConfigurationSource devCorsConfigurationSource() {
@@ -37,7 +42,7 @@ public class SecurityConfig {
 
         // Rules
         config.setAllowedOrigins(Arrays.asList(allowedOrigins));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(Arrays.asList("*"));
 
         // Set rules on paths
@@ -47,6 +52,10 @@ public class SecurityConfig {
         return source;
     }
 
+    /**
+    * Production CORS configuration with stricter rules
+    * @return CorsConfigurationSource with production settings
+    **/
     @Bean
     @Profile("!dev")
     public CorsConfigurationSource prodCorsConfigurationSource() {
