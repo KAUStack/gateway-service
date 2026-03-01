@@ -42,6 +42,7 @@ public class SecurityConfig {
         config.setAllowedOrigins(Arrays.asList(allowedOrigins));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowCredentials(true);
 
         // Set rules on paths
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
