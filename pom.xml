@@ -113,7 +113,7 @@
         <repositories>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/KAUStack/jwt-service</url>
+            <url>https://maven.pkg.github.com/KStacks-org/jwt-service</url>
             <releases><enabled>true</enabled></releases>
             <snapshots><enabled>false</enabled></snapshots>
         </repository>
